@@ -1,0 +1,48 @@
+name: Checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  regression:
+    name: Core regression tests
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - name: Run tests without models
+        run: python -B -m unittest discover -s tests -v
+
+  dependencies:
+    name: Windows dependency smoke check
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+          cache: pip
+      - name: Install pinned direct dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Check package compatibility
+        run: python -m pip check
+      - name: Check imports and bundled FFmpeg
+        run: |
+          @'
+          import tkinter
+          import av
+          import faster_whisper
+          import imageio_ffmpeg
+          import subprocess
+          from speaker_tools import require_backend
+          require_backend()
+          subprocess.run([imageio_ffmpeg.get_ffmpeg_exe(), "-version"], check=True)
+          print("Dependency smoke check passed; no models were downloaded.")
+          '@ | python -

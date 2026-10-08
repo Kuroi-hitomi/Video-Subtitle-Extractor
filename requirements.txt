@@ -1,0 +1,8 @@
+# Versions used by the working Windows installation.
+# Keep PyAV below 19: faster-whisper 1.2.1 uses metadata_errors.
+faster-whisper==1.2.1
+av==18.1.0
+imageio-ffmpeg==0.6.0
+# The Python wrapper and native core must use matching versions.
+sherpa-onnx==1.13.8
+sherpa-onnx-core==1.13.8
