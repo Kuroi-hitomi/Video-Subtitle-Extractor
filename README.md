@@ -4,6 +4,8 @@ A local Windows desktop application that turns MP4 speech into timestamped text 
 
 Transcribe a video, review the SRT text, and export plain subtitles, burned-in MP4 subtitles, or a selectable color subtitle track in MKV. The interface and documentation are in English. Speech is transcribed in its original language; it is not translated.
 
+![Video Subtitle desktop application showing transcription settings, speaker color controls, the subtitle editor, and video export options](assets/screenshots/application.png)
+
 ## Features
 
 - Local transcription with faster-whisper, running on CPU in the desktop app.
@@ -133,7 +135,7 @@ The app transcribes the first audio track. It compensates for an initial audio o
 
 Close the app before maintaining its environment. Keep the working environment and model cache while diagnosing installation problems.
 
-## Development and publishing
+## Development
 
 Run the focused regression suite without downloading models:
 
@@ -141,7 +143,7 @@ Run the focused regression suite without downloading models:
 py -3.14 -B -m unittest discover -s tests -v
 ```
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for the code map and manual checks, [CHANGELOG.md](CHANGELOG.md) for release notes, and [docs/PUBLISHING.md](docs/PUBLISHING.md) for the GitHub upload procedure.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the code map and manual checks, and [CHANGELOG.md](CHANGELOG.md) for release notes.
 
 GitHub Actions runs regression tests and a Windows dependency smoke check. These checks do not measure transcription accuracy or exercise a complete model download and video export.
 
